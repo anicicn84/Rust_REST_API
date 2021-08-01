@@ -21,9 +21,21 @@ struct Cli {
     path: std::path::PathBuf,
 }
 
-fn rest_upload(filename: std::path::PathBuf) {}
-fn rest_delete(filename: std::path::PathBuf) {}
-fn rest_list() {}
+async fn rest_upload(path: &'static str) {
+    let upload_route = warp::path(path)
+        .and(warp::post())
+        .and(warp::multipart::form().max_length(5_000_000))
+        .and_then(upload);
+    let router = upload_route.recover(handle_rejection);
+    println!("Server started at localhost:8080");
+
+    warp::serve(router)
+        .run(([0, 0, 0, 0], 8080))
+        .await;
+}
+
+async fn rest_delete(filename: std::path::PathBuf) {}
+async fn rest_list() {}
 
 #[tokio::main]
 async fn main(){
@@ -35,29 +47,13 @@ async fn main(){
     }
 
     match args.command.as_str() {
-        "upload-file" => rest_upload(args.path),
-        "delete-file" => rest_delete(args.path),
-        "list-files" => rest_list(),
+        "upload-file" => rest_upload("upload").await,
+        "delete-file" => rest_delete(args.path).await,
+        "list-files" => rest_list().await,
         _ => panic!("No command {} found", args.command),
     }
 
-    let upload_route = warp::path("upload")
-        .and(warp::post())
-        .and(warp::multipart::form().max_length(5_000_000))
-        .and_then(upload);
-
-
     //tokio::fs::read_dir -> to read the directory's files and to get them inside the list-files
-    
-    ///GET  /files -> serves files from the given path. File download.
-    let download_route = warp::path("files").and(warp::fs::dir("./files/"));
-
-    let router = upload_route.or(download_route).recover(handle_rejection);
-    println!("Server started at localhost:8080");
-
-    warp::serve(router)
-        .run(([0, 0, 0, 0], 8080))
-        .await;
 }
 
 /// upload route definition

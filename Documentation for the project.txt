@@ -1,0 +1,14 @@
+Documentation for the project
+
+In order to run the app, first you need to build it by going to the main folder where the src/ folder is and Cargo.toml file is and run from the console `cargo build` command. 
+It will download all of the necessary packages defined in the toml file needed to be used for this project. 
+
+For running the app go to the folder target/debug and run the following:
+`./fs-store upload-file files/some_file.txt`
+
+** You can replace "upload-file" with "delete-file", or "list-files" as stated in the project description. 
+list-files command does not take any additional arguments and it is enought o be ran as: 
+`./fs-store list-files`
+
+Note: you would need to have folder files/ with some files in it. 
+The app is designed in a "filtering" manner to support some kind of files, not all the types. At the moment I have added a support for the pdf, txt and png files, as it can be seen from the code itself.
