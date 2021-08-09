@@ -1,5 +1,3 @@
-Documentation for the project
-
 In order to run the app, first you need to build it by going to the main folder where the src/ folder is and Cargo.toml file is present and from there run from the console `cargo build` command. 
 It will download all of the necessary packages defined in the .toml file needed to be used for this project. 
 Of course, you need to have rust compiler installed on your machine, depending on your OS.
@@ -27,12 +25,11 @@ You can also run these by going to target/debug folder and you will have server 
 ./fs_store upload_file Cargo.toml
 ./fs_store delete_file Cargo.toml
 
-but I find 1st approach easier, by running it from the root folder, not having to worry where the executables are.
+The 1st approach is easier, by running it from the root folder, not having to worry where the executables are.
 
-The reason why Cargo.toml file is given here is because it is present in the running folder. Of course, you can specify another path to the file you want to upload, like for ex. /Users/User/Documents/file.txt
-
-
+The reason why Cargo.toml file is given here is because it is present in the running folder. Of course, you can specify another path to the file you want to upload, like for ex. on MAC /Users/User/Documents/file.txt
 
 
-Test are not covered since I did not have time to do those, I spent already the full last day when I promised to deliver the project. 
-This is something to be improved. 
+
+
+Test are not covered and improvement is about to come.
